@@ -17,8 +17,8 @@ namespace Tarteeb.Api.Services.Foundations.Teams
         public TeamService(IStorageBroker storageBroker) =>
             this.storageBroker = storageBroker;
 
-        public ValueTask<Team> AddTeamAsync(Team team) =>
-            throw new System.NotImplementedException();
+        public async ValueTask<Team> AddTeamAsync(Team team) =>
+            await storageBroker.InsertTeamAsync(team);
        
     }
 }
