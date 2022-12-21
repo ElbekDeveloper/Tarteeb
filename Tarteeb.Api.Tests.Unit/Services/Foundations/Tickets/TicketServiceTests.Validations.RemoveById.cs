@@ -3,10 +3,17 @@
 // Free to use to bring order in your workplace
 //=================================
 
+<<<<<<< HEAD
+using FluentAssertions;
+using Moq;
+using System;
+using System.Threading.Tasks;
+=======
 using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+>>>>>>> a0e20c346d83c7b0d867c9109069ab1e196ede0e
 using Tarteeb.Api.Models.Tickets;
 using Tarteeb.Api.Models.Tickets.Exceptions;
 using Xunit;
@@ -16,6 +23,26 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Tickets
     public partial class TicketServiceTests
     {
         [Fact]
+<<<<<<< HEAD
+        public async Task ShouldThrowValidationExceptionOnRemoveIfIdIsInvalidAndLogItAsyn()
+        {
+            // given
+            Guid invalidTicketId = Guid.Empty;
+
+            var invalidTicketException =
+                new InvalidTicketException();
+
+            invalidTicketException.AddData(
+                key: nameof(Ticket.Id),
+                values: "Id is required");
+
+            var expectedTicketValidationException =
+                new TicketValidationException(invalidTicketException);
+
+            //when
+            ValueTask<Ticket> removeTicketByIdTask =
+                this.ticketService.RemoveTicketByIdAsync(invalidTicketId);
+=======
         public async Task ShouldThrowNotFoundExceptionOnRemoveIfTicketIsNotFoundAndLogItAsync()
         {
             //given
@@ -36,6 +63,7 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Tickets
             //when
             ValueTask<Ticket> removeTicketByIdTask =
                 this.ticketService.RemoveTicketByIdAsync(inputTicketId);
+>>>>>>> a0e20c346d83c7b0d867c9109069ab1e196ede0e
 
             TicketValidationException actualTicketValidationException =
                 await Assert.ThrowsAsync<TicketValidationException>(
@@ -44,6 +72,19 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Tickets
             //then
             actualTicketValidationException.Should().BeEquivalentTo(expectedTicketValidationException);
 
+<<<<<<< HEAD
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs
+                    (expectedTicketValidationException))),
+                        Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.DeleteTicketAsync(It.IsAny<Ticket>()),
+                    Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+=======
             this.storageBrokerMock.Verify(broker =>
                 broker.SelectTicketByIdAsync(It.IsAny<Guid>()), Times.Once);
 
@@ -56,6 +97,7 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Tickets
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
+>>>>>>> a0e20c346d83c7b0d867c9109069ab1e196ede0e
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
         }
     }
