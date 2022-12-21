@@ -43,10 +43,12 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Tickets
             actualTicket.Should().BeEquivalentTo(expectedTicket);
 
             this.storageBrokerMock.Verify(broker =>
-                broker.SelectTicketByIdAsync(inputTicketId), Times.Once);
+                broker.SelectTicketByIdAsync(inputTicketId),
+                    Times.Once());
 
             this.storageBrokerMock.Verify(broker =>
-                broker.DeleteTicketAsync(expectedInputTicket), Times.Once);
+                broker.DeleteTicketAsync(expectedInputTicket),
+                    Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
