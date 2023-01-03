@@ -132,5 +132,43 @@ namespace Tarteeb.Api.Controllers
                 return InternalServerError(teamServiceException.InnerException);
             }
         }
+
+        [HttpDelete("{teamId}")]
+        public async ValueTask<ActionResult<Team>> DeleteTeamByIdAsync(Guid teamId)
+        {
+            try
+            {
+                Team deletedTeam =
+                    await this.teamService.RemoveTeamByIdAsync(teamId);
+
+                return Ok(deletedTeam);
+            }
+            catch (TeamValidationException teamValidationException)
+                when (teamValidationException.InnerException is NotFoundTeamException)
+            {
+                return NotFound(teamValidationException.InnerException);
+            }
+            catch (TeamValidationException teamValidationException)
+            {
+                return BadRequest(teamValidationException.InnerException);
+            }
+            catch (TeamDependencyValidationException teamDependencyValidationException)
+                when (teamDependencyValidationException.InnerException is LockedTeamException)
+            {
+                return Locked(teamDependencyValidationException.InnerException);
+            }
+            catch (TeamDependencyValidationException teamDependencyValidationException)
+            {
+                return BadRequest(teamDependencyValidationException.InnerException);
+            }
+            catch (TeamDependencyException teamDependencyException)
+            {
+                return InternalServerError(teamDependencyException.InnerException);
+            }
+            catch (TeamServiceException teamServiceException)
+            {
+                return InternalServerError(teamServiceException.InnerException);
+            }
+        }
     }
 }
