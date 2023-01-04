@@ -28,6 +28,7 @@ namespace Tarteeb.Api.Services.Foundations.Users
                 (Rule: IsInvalid(user.CreatedDate), Parameter: nameof(User.CreatedDate)),
                 (Rule: IsInvalid(user.UpdatedDate), Parameter: nameof(User.UpdatedDate)),
                 (Rule: IsNotRecent(user.CreatedDate), Parameter: nameof(User.CreatedDate)),
+                (Rule: IsInvalid(user.Password), Parameter: nameof(User.Password)),
 
                 (Rule: IsNotSame(
                     firstDate: user.CreatedDate,
