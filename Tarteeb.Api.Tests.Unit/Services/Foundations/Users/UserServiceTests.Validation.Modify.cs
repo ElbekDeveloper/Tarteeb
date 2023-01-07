@@ -89,6 +89,10 @@ namespace Tarteeb.Api.Tests.Unit.Services.Foundations.Users
                 key: nameof(User.UpdatedDate),
                 values: "Value is required");
 
+            invalidUserException.AddData(
+                key: nameof(User.Password),
+                values: "Text is required");
+
             var expectedUserValidationException = new UserValidationException(
                 invalidUserException);
 
