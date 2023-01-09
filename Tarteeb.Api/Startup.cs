@@ -12,6 +12,7 @@ using Microsoft.OpenApi.Models;
 using Tarteeb.Api.Brokers.DateTimes;
 using Tarteeb.Api.Brokers.Loggings;
 using Tarteeb.Api.Brokers.Storages;
+using Tarteeb.Api.Brokers.Tokens;
 using Tarteeb.Api.Services.Foundations.Teams;
 using Tarteeb.Api.Services.Foundations.Tickets;
 using Tarteeb.Api.Services.Foundations.Users;
@@ -65,6 +66,7 @@ namespace Tarteeb.Api
             services.AddTransient<IStorageBroker, StorageBroker>();
             services.AddTransient<ILoggingBroker, LoggingBroker>();
             services.AddTransient<IDateTimeBroker, DateTimeBroker>();
+            services.AddTransient<ITokenBroker, TokenBroker>();
         }
 
         private static void AddFoundationServices(IServiceCollection services)
