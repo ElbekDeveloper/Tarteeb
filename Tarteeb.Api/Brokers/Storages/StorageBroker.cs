@@ -45,19 +45,19 @@ namespace Tarteeb.Api.Brokers.Storages
             return await broker.FindAsync<T>(objectIds);
         }
 
-        private async ValueTask<T> DeleteAsync<T>(T @object)
+        private async ValueTask<T> UpdateAsync<T>(T @object)
         {
             var broker = new StorageBroker(this.configuration);
-            broker.Entry(@object).State = EntityState.Deleted;
+            broker.Entry(@object).State = EntityState.Modified;
             await broker.SaveChangesAsync();
 
             return @object;
         }
 
-        private async ValueTask<T> UpdateAsync<T>(T @object)
+        private async ValueTask<T> DeleteAsync<T>(T @object)
         {
             var broker = new StorageBroker(this.configuration);
-            broker.Entry(@object).State = EntityState.Modified;
+            broker.Entry(@object).State = EntityState.Deleted;
             await broker.SaveChangesAsync();
 
             return @object;
